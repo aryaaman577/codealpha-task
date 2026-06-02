@@ -1,0 +1,29 @@
+const mongoose = require('mongoose');
+
+const followSchema = new mongoose.Schema({
+  follower: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  following: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
+}, {
+  timestamps: true
+});
+
+followSchema.index({ follower: 1, following: 1 }, { unique: true });
+followSchema.index({ follower: 1 });
+followSchema.index({ following: 1 });
+
+followSchema.pre('save', function(next) {
+  if (this.follower.equals(this.following)) {
+    return next(new Error('Cannot follow yourself'));
+  }
+  next();
+});
+
+module.exports = mongoose.model('Follow', followSchema);

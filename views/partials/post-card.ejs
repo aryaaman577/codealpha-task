@@ -1,0 +1,52 @@
+<div class="card post-card">
+  <div class="card-body">
+    <div class="post-header">
+      <img src="<%= post.user.profile?.profilePicture || `https://ui-avatars.com/api/?name=${post.user.username}&background=111827&color=fff&size=200` %>" 
+           alt="<%= post.user.username %>" 
+           class="post-avatar">
+      <div class="post-author">
+        <a href="/user/<%= post.user.username %>" class="post-author-name">
+          <%= post.user.username %>
+        </a>
+        <div class="post-time">
+          <%= moment(post.createdAt).fromNow() %>
+        </div>
+      </div>
+      <% if (currentUser && currentUser._id.equals(post.user._id)) { %>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <form action="/post/<%= post._id %>/delete" method="POST" class="d-inline">
+                <button type="submit" class="dropdown-item text-danger confirm-delete">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="post-content">
+      <%= post.content %>
+    </div>
+
+    <% if (post.image) { %>
+      <img src="<%= post.image %>" alt="Post image" class="post-image">
+    <% } %>
+
+    <div class="post-actions">
+      <button class="post-action-btn like-button <%= post.isLiked ? 'liked' : '' %>" data-post-id="<%= post._id %>">
+        <i class="bi <%= post.isLiked ? 'bi-heart-fill' : 'bi-heart' %>"></i>
+        <span class="like-count"><%= post.likesCount || 0 %></span>
+      </button>
+      <a href="/post/<%= post._id %>" class="post-action-btn">
+        <i class="bi bi-chat"></i>
+        <span><%= post.commentsCount || 0 %></span>
+      </a>
+    </div>
+  </div>
+</div>

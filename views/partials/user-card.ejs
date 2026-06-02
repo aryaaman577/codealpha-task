@@ -1,0 +1,16 @@
+<div class="user-card">
+  <img src="<%= user.profile?.profilePicture || `https://ui-avatars.com/api/?name=${user.username}&background=111827&color=fff&size=200` %>" 
+       alt="<%= user.username %>" 
+       class="user-card-avatar">
+  <div class="user-card-info">
+    <a href="/user/<%= user.username %>" class="user-card-name">
+      <%= user.profile?.firstName || user.username %> <%= user.profile?.lastName || '' %>
+    </a>
+    <div class="user-card-username">@<%= user.username %></div>
+  </div>
+  <% if (currentUser && !currentUser._id.equals(user._id)) { %>
+    <button class="btn btn-sm btn-primary follow-button" data-user-id="<%= user._id %>">
+      Follow
+    </button>
+  <% } %>
+</div>
