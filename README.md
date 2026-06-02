@@ -7,6 +7,24 @@ GitHub Repository: [codealpha-task](https://github.com/aryaaman577/codealpha-tas
 
 ---
 
+## 📱 Screenshots Gallery
+
+Here are the live screenshots of **CircleSphere** demonstrating the sleek, modern, professional "Dim Mode" user interface design:
+
+| Page | Screen Preview |
+|---|---|
+| **Landing & Welcoming** | ![Landing Page](public/images/screenshots/landing.png) |
+| **Authentication (Login)** | ![Login Page](public/images/screenshots/login.png) |
+| **Authentication (Register)** | ![Register Page](public/images/screenshots/register.png) |
+| **Home Feed (Dim Slate-Blue Mode)** | ![Home Feed](public/images/screenshots/feed.png) |
+| **Interactive User Profile** | ![User Profile](public/images/screenshots/profile.png) |
+| **Edit Profile & Settings** | ![Edit Profile](public/images/screenshots/edit_profile.png) |
+| **Create New Post** | ![Create Post](public/images/screenshots/create_post.png) |
+| **Analytics Dashboard** | ![User Dashboard](public/images/screenshots/dashboard.png) |
+| **Developer Profile** | ![Developer Profile](public/images/screenshots/developer.png) |
+
+---
+
 ## 🎯 Project Overview
 
 CircleSphere is a high-fidelity, full-stack social media application designed and engineered to demonstrate elite web development capabilities. Built with clean architectural separation and premium aesthetic principles, this project fulfills 100% of the requirements for **CodeAlpha Task 2 (Social Media Network)** and is fully ready for recruiter review, technical showcase, and production deployment.
