@@ -302,6 +302,58 @@ function createModel(modelName, schema) {
         });
       });
     }
+
+    static async exists(query) {
+      const doc = await this.findOne(query);
+      return !!doc;
+    }
+
+    static async findOneAndUpdate(query, update, options = {}) {
+      let doc = await this.findOne(query);
+      if (!doc) {
+        if (options.upsert) {
+          const cleanUpdate = update.$set ? { ...update.$set } : { ...update };
+          const data = { ...query, ...cleanUpdate };
+          doc = new Model(data);
+          await doc.save();
+          return doc;
+        }
+        return null;
+      }
+      
+      const cleanUpdate = update.$set ? { ...update.$set } : { ...update };
+      Object.assign(doc, cleanUpdate);
+      await doc.save();
+      return doc;
+    }
+
+    static async aggregate(pipeline) {
+      let matchStage = pipeline.find(stage => stage.$match);
+      let groupStage = pipeline.find(stage => stage.$group);
+      
+      let query = matchStage ? matchStage.$match : {};
+      const docs = await this.find(query);
+      
+      if (groupStage) {
+        const sumFields = {};
+        for (const [key, val] of Object.entries(groupStage.$group)) {
+          if (val && val.$sum) {
+            const fieldName = typeof val.$sum === 'string' && val.$sum.startsWith('$') 
+              ? val.$sum.substring(1) 
+              : null;
+            if (fieldName) {
+              let total = 0;
+              for (const d of docs) {
+                total += Number(d[fieldName] || 0);
+              }
+              sumFields[key] = total;
+            }
+          }
+        }
+        return [sumFields];
+      }
+      return docs;
+    }
   }
 
   // Inject schema statics

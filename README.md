@@ -9,6 +9,7 @@ A premium social networking platform built with modern web technologies. CircleS
 ## 🎯 Project Overview
 
 CircleSphere is a full-stack social media application designed as a portfolio-ready project suitable for:
+
 - CodeAlpha Internship submissions
 - GitHub portfolio showcase
 - Resume project demonstrations
@@ -19,6 +20,7 @@ CircleSphere is a full-stack social media application designed as a portfolio-re
 ## ✨ Features
 
 ### Core Functionality
+
 - **User Authentication**: Secure registration, login, and session management with JWT
 - **User Profiles**: Customizable profiles with avatar, cover image, bio, location, website, and skills
 - **Posts**: Create, edit, delete text and image posts
@@ -30,6 +32,7 @@ CircleSphere is a full-stack social media application designed as a portfolio-re
 - **Dashboard**: Analytics view showing user statistics and activity
 
 ### Advanced Features
+
 - Premium monochromatic design system
 - Suggested users recommendations
 - Responsive mobile-friendly interface
@@ -45,6 +48,7 @@ CircleSphere is a full-stack social media application designed as a portfolio-re
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **HTML5** - Semantic markup
 - **CSS3** - Custom styling with CSS variables
 - **JavaScript** - Client-side interactivity
@@ -52,12 +56,14 @@ CircleSphere is a full-stack social media application designed as a portfolio-re
 - **EJS** - Server-side templating
 
 ### Backend
+
 - **Node.js** - JavaScript runtime
 - **Express.js** - Web application framework
 - **MongoDB** - NoSQL database
 - **Mongoose** - MongoDB ODM
 
 ### Authentication & Security
+
 - **JWT** - JSON Web Tokens for authentication
 - **bcryptjs** - Password hashing
 - **express-validator** - Input validation
@@ -65,6 +71,7 @@ CircleSphere is a full-stack social media application designed as a portfolio-re
 - **express-session** - Session management
 
 ### Additional Libraries
+
 - **Multer** - File upload handling
 - **Cloudinary** - Image hosting (optional)
 - **Moment.js** - Date/time formatting
@@ -156,28 +163,34 @@ CircleSphere/
 ## 🚀 Installation & Setup
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - MongoDB (local or MongoDB Atlas)
 - npm or yarn package manager
 
 ### Step 1: Clone Repository
+
 ```bash
 git clone <repository-url>
 cd CircleSphere
 ```
 
 ### Step 2: Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### Step 3: Environment Configuration
+
 Copy `.env.example` to `.env`:
+
 ```bash
 cp .env.example .env
 ```
 
 Update the `.env` file with your configuration:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -198,7 +211,9 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
 ### Step 4: Start MongoDB
+
 Make sure MongoDB is running on your system:
+
 ```bash
 # For local MongoDB
 mongod
@@ -207,7 +222,9 @@ mongod
 ```
 
 ### Step 5: Seed Database (Optional)
+
 Populate the database with sample data:
+
 ```bash
 npm run seed
 ```
@@ -215,6 +232,7 @@ npm run seed
 This creates 5 sample users with posts, comments, and follow relationships.
 
 **Sample Login Credentials:**
+
 - Email: `john@example.com` | Password: `password123`
 - Email: `jane@example.com` | Password: `password123`
 - Email: `mike@example.com` | Password: `password123`
@@ -222,17 +240,21 @@ This creates 5 sample users with posts, comments, and follow relationships.
 - Email: `alex@example.com` | Password: `password123`
 
 ### Step 6: Start Server
+
 ```bash
 npm start
 ```
 
 For development with auto-restart:
+
 ```bash
 npm run dev
 ```
 
 ### Step 7: Access Application
+
 Open your browser and navigate to:
+
 ```
 http://localhost:3000
 ```
@@ -242,6 +264,7 @@ http://localhost:3000
 ## 📊 Database Schema
 
 ### User Collection
+
 ```javascript
 {
   username: String (unique, required),
@@ -253,6 +276,7 @@ http://localhost:3000
 ```
 
 ### Profile Collection
+
 ```javascript
 {
   user: ObjectId (ref: User),
@@ -268,6 +292,7 @@ http://localhost:3000
 ```
 
 ### Post Collection
+
 ```javascript
 {
   user: ObjectId (ref: User),
@@ -282,6 +307,7 @@ http://localhost:3000
 ```
 
 ### Comment Collection
+
 ```javascript
 {
   post: ObjectId (ref: Post),
@@ -292,6 +318,7 @@ http://localhost:3000
 ```
 
 ### Follow Collection
+
 ```javascript
 {
   follower: ObjectId (ref: User),
@@ -305,6 +332,7 @@ http://localhost:3000
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Primary**: `#111827` (Gray 900)
 - **Secondary**: `#1F2937` (Gray 800)
 - **Accent**: `#374151` (Gray 700)
@@ -315,11 +343,13 @@ http://localhost:3000
 - **Text Secondary**: `#6B7280` (Gray 500)
 
 ### Typography
+
 - **Font Family**: Inter, system fonts
 - **Base Size**: 16px
 - **Weights**: 400, 500, 600, 700, 800
 
 ### Components
+
 - Minimal and clean design
 - Subtle shadows and borders
 - Rounded corners (6-12px)
@@ -344,6 +374,7 @@ http://localhost:3000
 ## 🧪 Testing
 
 ### Manual Testing Checklist
+
 - [ ] User registration with validation
 - [ ] User login and logout
 - [ ] Profile creation and updates
@@ -363,6 +394,7 @@ http://localhost:3000
 ## 📱 API Endpoints
 
 ### Authentication
+
 - `GET /auth/register` - Registration page
 - `POST /auth/register` - Create account
 - `GET /auth/login` - Login page
@@ -370,6 +402,7 @@ http://localhost:3000
 - `GET /auth/logout` - Logout user
 
 ### Users & Profiles
+
 - `GET /user/:username` - View user profile
 - `GET /user/edit` - Edit profile page
 - `POST /user/edit` - Update profile
@@ -379,6 +412,7 @@ http://localhost:3000
 - `GET /user/search` - Search users
 
 ### Posts
+
 - `GET /post/create` - Create post page
 - `POST /post/create` - Create new post
 - `GET /post/:id` - View post detail
@@ -386,16 +420,20 @@ http://localhost:3000
 - `POST /post/:id/delete` - Delete post
 
 ### Comments
+
 - `POST /comment/post/:postId/comment` - Add comment
 - `POST /comment/:id/delete` - Delete comment
 
 ### Likes
+
 - `POST /api/post/:postId/like` - Toggle like
 
 ### Follows
+
 - `POST /api/user/:userId/follow` - Toggle follow
 
 ### Feed
+
 - `GET /feed` - Home feed
 - `GET /` - Landing page
 
@@ -448,6 +486,7 @@ MIT License - feel free to use this project for learning and portfolio purposes.
 Created as a portfolio project demonstrating full-stack web development skills.
 
 **Technologies Demonstrated:**
+
 - RESTful API design
 - MVC architecture
 - Database design and relationships
@@ -471,10 +510,11 @@ Created as a portfolio project demonstrating full-stack web development skills.
 ## 📞 Support
 
 For issues or questions:
+
 1. Check the documentation
 2. Review the code comments
 3. Test with sample data using `npm run seed`
 
 ---
 
-**CircleSphere** - *Connect. Share. Belong.* 🌐
+**CircleSphere** - _Connect. Share. Belong._ 🌐
