@@ -63,6 +63,11 @@ const feedRoutes = require('./routes/feedRoutes');
 const feedController = require('./controllers/feedController');
 
 app.get('/', feedController.showLanding);
+app.get('/developer', (req, res) => {
+  res.render('developer', {
+    title: 'Developer Profile - Aryaaman'
+  });
+});
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/post', postRoutes);

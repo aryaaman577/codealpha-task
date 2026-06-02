@@ -29,6 +29,28 @@ const generateId = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 };
 
+// Convert MongoDB style $regex queries to NeDB-friendly RegExp objects
+function convertQuery(query) {
+  if (!query || typeof query !== 'object') return query;
+  
+  if (Array.isArray(query)) {
+    return query.map(item => convertQuery(item));
+  }
+  
+  const converted = {};
+  for (const [key, val] of Object.entries(query)) {
+    if (val && typeof val === 'object' && '$regex' in val) {
+      const options = val.$options || '';
+      converted[key] = new RegExp(val.$regex, options);
+    } else if (val && typeof val === 'object') {
+      converted[key] = convertQuery(val);
+    } else {
+      converted[key] = val;
+    }
+  }
+  return converted;
+}
+
 class Schema {
   constructor(definition, options = {}) {
     this.definition = definition;
@@ -207,7 +229,7 @@ function createModel(modelName, schema) {
     static find(query = {}) {
       return new QueryBuilder(async (builder) => {
         return new Promise((resolve, reject) => {
-          let cursor = store.find(query);
+          let cursor = store.find(convertQuery(query));
           
           if (builder.sortOpt) {
             // NeDB sort format is { field: 1 } or { field: -1 }
@@ -236,7 +258,7 @@ function createModel(modelName, schema) {
     static findOne(query = {}) {
       return new QueryBuilder(async (builder) => {
         return new Promise((resolve, reject) => {
-          store.findOne(query, async (err, doc) => {
+          store.findOne(convertQuery(query), async (err, doc) => {
             if (err) return reject(err);
             if (!doc) return resolve(null);
             const instance = new Model(doc);
@@ -266,7 +288,7 @@ function createModel(modelName, schema) {
 
     static deleteOne(query = {}) {
       return new Promise((resolve, reject) => {
-        store.remove(query, {}, (err, numRemoved) => {
+        store.remove(convertQuery(query), {}, (err, numRemoved) => {
           if (err) return reject(err);
           resolve({ deletedCount: numRemoved });
         });
@@ -275,7 +297,7 @@ function createModel(modelName, schema) {
 
     static deleteMany(query = {}) {
       return new Promise((resolve, reject) => {
-        store.remove(query, { multi: true }, (err, numRemoved) => {
+        store.remove(convertQuery(query), { multi: true }, (err, numRemoved) => {
           if (err) return reject(err);
           resolve({ deletedCount: numRemoved });
         });
@@ -296,7 +318,7 @@ function createModel(modelName, schema) {
 
     static countDocuments(query = {}) {
       return new Promise((resolve, reject) => {
-        store.count(query, (err, count) => {
+        store.count(convertQuery(query), (err, count) => {
           if (err) return reject(err);
           resolve(count);
         });
