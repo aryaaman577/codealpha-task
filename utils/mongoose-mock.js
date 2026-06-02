@@ -157,8 +157,9 @@ async function performPopulate(docs, populateOpts) {
 }
 
 function createModel(modelName, schema) {
-  const filename = path.join(dataDir, `${modelName}.db`);
-  const store = new Datastore({ filename, autoload: true });
+  const useInMemory = !!process.env.VERCEL;
+  const storeOptions = useInMemory ? { inMemoryOnly: true } : { filename: path.join(dataDir, `${modelName}.db`), autoload: true };
+  const store = new Datastore(storeOptions);
   dbStores[modelName] = store;
 
   class Model {

@@ -214,12 +214,22 @@ const seedData = async () => {
     });
     console.log('');
 
-    await mongoose.connection.close();
-    process.exit(0);
+    if (require.main === module) {
+      await mongoose.connection.close();
+      process.exit(0);
+    }
   } catch (error) {
     console.error('✗ Seed error:', error);
-    process.exit(1);
+    if (require.main === module) {
+      process.exit(1);
+    } else {
+      throw error;
+    }
   }
 };
 
-seedData();
+if (require.main === module) {
+  seedData();
+} else {
+  module.exports = seedData;
+}
