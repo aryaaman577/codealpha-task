@@ -13,6 +13,13 @@ if (!String.prototype.equals) {
 
 const Datastore = require('nedb');
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs');
+
+const dataDir = path.join(__dirname, '..', '.data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
 
 const dbStores = {};
 const models = {};
@@ -84,6 +91,14 @@ class QueryBuilder {
     return this;
   }
 
+  select(opt) {
+    return this;
+  }
+
+  exec() {
+    return this.execute();
+  }
+
   then(onFulfilled, onRejected) {
     return this.execute().then(onFulfilled, onRejected);
   }
@@ -120,8 +135,8 @@ async function performPopulate(docs, populateOpts) {
 }
 
 function createModel(modelName, schema) {
-  const store = new Datastore({ inMemoryOnly: true });
-  store.loadDatabase();
+  const filename = path.join(dataDir, `${modelName}.db`);
+  const store = new Datastore({ filename, autoload: true });
   dbStores[modelName] = store;
 
   class Model {
