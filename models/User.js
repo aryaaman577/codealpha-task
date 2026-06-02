@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 

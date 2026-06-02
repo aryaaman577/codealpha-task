@@ -1,14 +1,5 @@
 require('dotenv').config();
 
-// Mock Mongoose with in-memory NeDB driver
-const mockMongoose = require('../utils/mongoose-mock');
-require('module')._cache[require.resolve('mongoose')] = {
-  id: require.resolve('mongoose'),
-  filename: require.resolve('mongoose'),
-  loaded: true,
-  exports: mockMongoose
-};
-
 // Set fallback env variables for Vercel if not provided
 if (!process.env.SESSION_SECRET) {
   process.env.SESSION_SECRET = 'circlesphere_super_secret_session_key_2024_change_in_production';

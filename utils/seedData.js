@@ -1,15 +1,6 @@
 require('dotenv').config();
 
-// Mock Mongoose with in-memory NeDB driver
-const mockMongoose = require('../utils/mongoose-mock');
-require('module')._cache[require.resolve('mongoose')] = {
-  id: require.resolve('mongoose'),
-  filename: require.resolve('mongoose'),
-  loaded: true,
-  exports: mockMongoose
-};
-
-const mongoose = require('mongoose');
+const mongoose = require('./mongoose-mock');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const Post = require('../models/Post');

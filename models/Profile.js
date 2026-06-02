@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 
 const profileSchema = new mongoose.Schema({
   user: {
