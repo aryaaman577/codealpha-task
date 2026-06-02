@@ -65,7 +65,7 @@ const feedController = require('./controllers/feedController');
 app.get('/', feedController.showLanding);
 app.get('/developer', (req, res) => {
   res.render('developer', {
-    title: 'Developer Profile - Aryaaman'
+    title: 'Developer Profile - Aman Gupta'
   });
 });
 app.use('/auth', authRoutes);

@@ -425,8 +425,6 @@ body {
   margin-bottom: 1.5rem;
   font-weight: 700;
   border: 1px solid var(--color-border) !important;
-  background-color: var(--color-card) !important;
-  color: var(--color-text) !important;
   box-shadow: var(--shadow-md) !important;
   display: flex !important;
   align-items: center;
@@ -435,6 +433,8 @@ body {
 
 .alert-success {
   border-left: 5px solid #10b981 !important; /* Elegant emerald green stripe */
+  color: #34d399 !important; /* High contrast emerald text color override */
+  background-color: rgba(16, 185, 129, 0.08) !important; /* Muted glass success background */
 }
 
 .alert-success::before {
@@ -446,6 +446,8 @@ body {
 
 .alert-danger {
   border-left: 5px solid #ef4444 !important; /* Elegant crimson red stripe */
+  color: #f87171 !important; /* High contrast red text color override */
+  background-color: rgba(239, 68, 68, 0.08) !important; /* Muted glass error background */
 }
 
 .alert-danger::before {
