@@ -16,8 +16,9 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
 
+const useInMemory = !!process.env.VERCEL;
 const dataDir = path.join(__dirname, '..', '.data');
-if (!fs.existsSync(dataDir)) {
+if (!useInMemory && !fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
@@ -157,7 +158,6 @@ async function performPopulate(docs, populateOpts) {
 }
 
 function createModel(modelName, schema) {
-  const useInMemory = !!process.env.VERCEL;
   const storeOptions = useInMemory ? { inMemoryOnly: true } : { filename: path.join(dataDir, `${modelName}.db`), autoload: true };
   const store = new Datastore(storeOptions);
   dbStores[modelName] = store;
