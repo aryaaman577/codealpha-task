@@ -16,3 +16,23 @@ yarn-error.log*
 dist/
 build/
 coverage/
+.blackboxcli/
+
+# Environment files
+.env.local
+.env.production
+.env.development
+
+# Vercel
+.vercel/
+
+# Firebase & Secret configs
+firebase-service-account.json
+serviceAccountKey.json
+secrets.json
+config.local.json
+
+# Keys and Certificates
+*.pem
+*.key
+*.p12
